@@ -1,0 +1,36 @@
+version: '3.7'
+services:
+  fastify-api-mysql:
+    image: mysql:8.0.28
+    container_name: fastify-api-mysql
+    command: --default-authentication-plugin=mysql_native_password
+    networks:
+      - fastify-api-network
+    ports:
+      - 3310:3306
+    environment:
+      - MYSQL_DATABASE=fastify_api
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - ./docker/mysql:/docker-entrypoint-initdb.d
+      - ./storage/.db/:/var/lib/mysql
+    security_opt:
+      - seccomp:unconfined
+
+  fastify-api-back:
+    build:
+      context: ./
+      dockerfile: ./docker/dev/Dockerfile
+    container_name: fastify-api-back
+    depends_on:
+      - fastify-api-mysql
+    networks:
+      - fastify-api-network
+    ports:
+      - 3001:3000
+    volumes:
+      - ./:/usr/src/
+
+networks:
+  fastify-api-network:
+    name: fastify-api-network
