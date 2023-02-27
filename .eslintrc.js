@@ -12,7 +12,6 @@ module.exports = {
     'sourceType': 'module'
   },
   rules: {
-    'semi': ['error', 'always'],
     'quotes': ['error', 'single'],
     'no-multiple-empty-lines': ['error', { max: 1 }],
     'max-len': ['error', { code: 89 }],

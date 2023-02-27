@@ -1,4 +1,4 @@
-import { FastifyReply, FastifyRequest } from 'fastify';
+import { FastifyReply, FastifyRequest } from 'fastify'
 
 export const healthController = async (
   _: FastifyRequest,
@@ -7,5 +7,5 @@ export const healthController = async (
   return reply.send({
     'status': 'online',
     'version': '1.0.0',
-  });
-};
+  })
+}
